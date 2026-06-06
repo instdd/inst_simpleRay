@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Android - SimpleRay</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #2980b9;
+            margin-top: 30px;
+        }
+        .link-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            color: white;
+            display: none;
+        }
+        .link-box.visible {
+            display: block;
+        }
+        .link-box h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.1em;
+        }
+        .link-container {
+            display: flex;
+            gap: 10px;
+            align-items: stretch;
+        }
+        .link-value {
+            flex: 1;
+            background: rgba(255,255,255,0.95);
+            color: #333;
+            padding: 12px 15px;
+            border-radius: 8px;
+            word-break: break-all;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        .copy-btn {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            transition: background 0.2s;
+            white-space: nowrap;
+        }
+        .copy-btn:hover {
+            background: #219a52;
+        }
+        .copy-btn.copied {
+            background: #2ecc71;
+        }
+        .step {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .step img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+        a {
+            color: #3498db;
+        }
+        .download-btn {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .download-btn:hover {
+            background: #2980b9;
+        }
+        .success-msg {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .note {
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>📱 Android - SimpleRay</h1>
+    <p><em>Июнь 2026</em></p>
+
+    <div id="linkBox" class="link-box">
+        <h3>🔗 Ваша персональная ссылка для подключения:</h3>
+        <div class="link-container">
+            <div id="linkValue" class="link-value"></div>
+            <button class="copy-btn" onclick="copyLink()">📋 Копировать</button>
+        </div>
+    </div>
+
+    <h2>Настройка SimpleRay:</h2>
+
+    <div class="step">
+        <h3>1. Установите приложение</h3>
+        <p>Скачайте файл <strong>SimpleRay.apk</strong> по ссылке и откройте его в папке <strong>«Загрузки»</strong>.</p>
+        <img src="0.jpg" alt="Открытие SimpleRay.apk в загрузках">
+    </div>
+
+    <div class="step">
+        <h3>2. Разрешите установку</h3>
+        <p>Появится предупреждение об установке из неизвестных источников — нажмите <strong>«Продолжить»</strong>.</p>
+        <img src="1.jpg" alt="Разрешение установки из неизвестных источников">
+    </div>
+
+    <div class="step">
+        <h3>3. Откройте приложение</h3>
+        <p>Дождитесь сообщения <strong>«Установка завершена»</strong> и нажмите <strong>«Открыть»</strong>.</p>
+        <img src="2.jpg" alt="Установка завершена, кнопка Открыть">
+    </div>
+
+    <div class="step">
+        <h3>4. Импортируйте серверы</h3>
+        <p>Скопируйте вашу ссылку для подключения <span id="fromBot">(нажмите кнопку "⚡️ Подключиться!" в боте)</span> и нажмите <strong>«Добавить из буфера»</strong>. Приложение импортирует все доступные серверы.</p>
+        <img src="3.jpg" alt="Добавление серверов из буфера обмена">
+    </div>
+
+    <div class="step">
+        <h3>5. Запустите тест пинга</h3>
+        <p>Разверните список серверов, нажав на <strong>стрелку</strong> слева от названия подписки, и нажмите на <strong>значок часов ⏱</strong> — приложение измерит пинг до каждого сервера.</p>
+        <img src="5.jpg" alt="Запуск теста пинга по значку часов">
+    </div>
+
+    <div class="step">
+        <h3>6. Подключитесь к лучшему серверу</h3>
+        <p>Выберите сервер с <strong>наименьшим пингом</strong> (кроме РФ) и нажмите <strong>«Подключиться»</strong>. Чем меньше значение в мс — тем быстрее соединение.</p>
+        <img src="4.jpg" alt="Выбор самого быстрого сервера и подключение">
+    </div>
+
+    <div class="note">
+        💡 <strong>Совет:</strong> включите переключатель <strong>«Туннелирование RU (RU-ресурсы напрямую)»</strong>, чтобы российские сайты (Госуслуги, маркетплейсы и т.п.) открывались напрямую, минуя VPN.
+    </div>
+
+    <div class="success-msg">
+        ✅ <strong>Вы великолепны!</strong> Наслаждайтесь интернетом без ограничений!
+    </div>
+
+    <p>Если у вас возникли сложности - пожалуйста напишите в техподдержку. Мы поможем.</p>
+
+    <script>
+        // Получаем параметр link из URL (query-параметр или путь)
+        const urlParams = new URLSearchParams(window.location.search);
+        let link = urlParams.get('link');
+
+        // Фолбэк: извлекаем ссылку из пути URL
+        // Формат: /inst_simpleRay/https://...
+        if (!link) {
+            const path = window.location.pathname;
+            const repoBase = '/inst_simpleRay/';
+            const idx = path.indexOf(repoBase);
+            if (idx !== -1) {
+                const linkPart = path.substring(idx + repoBase.length);
+                if (linkPart && linkPart.startsWith('http')) {
+                    link = decodeURIComponent(linkPart);
+                }
+            }
+        }
+
+        if (link) {
+            document.getElementById('linkBox').classList.add('visible');
+            document.getElementById('linkValue').textContent = link;
+            document.getElementById('fromBot').textContent = '(уже скопирована выше на этой странице)';
+        }
+
+        function copyLink() {
+            const linkText = document.getElementById('linkValue').textContent;
+            navigator.clipboard.writeText(linkText).then(() => {
+                const btn = document.querySelector('.copy-btn');
+                btn.textContent = '✅ Скопировано!';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = '📋 Копировать';
+                    btn.classList.remove('copied');
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
